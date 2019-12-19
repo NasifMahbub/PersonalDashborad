@@ -20,3 +20,4 @@ class EditView(UpdateView):
     success_url = reverse_lazy('home')
     form = CustomUserChangeForm
     fields = ('first_name', 'last_name', 'email', 'contact_no', 'image')
+
