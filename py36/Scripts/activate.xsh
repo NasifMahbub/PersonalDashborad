@@ -28,7 +28,7 @@ def _deactivate(args):
 _deactivate(["nondestructive"])
 aliases["deactivate"] = _deactivate
 
-$VIRTUAL_ENV = r"D:\intro-pbn\python\myproject1\py36"
+$VIRTUAL_ENV = r"D:\intro-pbn\python\PersonalDashborad\py36"
 
 $_OLD_VIRTUAL_PATH = $PATH
 $PATH = $PATH[:]

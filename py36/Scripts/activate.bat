@@ -1,6 +1,6 @@
 @echo off
 
-set "VIRTUAL_ENV=D:\intro-pbn\python\myproject1\py36"
+set "VIRTUAL_ENV=D:\intro-pbn\python\PersonalDashborad\py36"
 
 if defined _OLD_VIRTUAL_PROMPT (
     set "PROMPT=%_OLD_VIRTUAL_PROMPT%"
