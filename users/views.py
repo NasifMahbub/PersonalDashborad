@@ -4,6 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse
 from django.views import generic
 from .models import CustomUser
+from django.shortcuts import render, redirect
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
@@ -14,7 +15,8 @@ class SignUpView(CreateView):
 
 class EditView(UpdateView):
     model = CustomUser
-    form = CustomUserChangeForm
-    success_url = reverse_lazy('home')
     template_name = 'edit.html'
-    fields = ('username', 'first_name', 'last_name', 'email', 'contact_no')
+    
+    success_url = reverse_lazy('home')
+    form = CustomUserChangeForm
+    fields = ('first_name', 'last_name', 'email', 'contact_no', 'image')

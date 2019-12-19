@@ -4,45 +4,27 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
 <style>
-    table{
-        width:60%;
-    }
-    table, th, td {
-        border: 1px solid white;
-        border-collapse: collapse;
-    }
-    th {
-        width: 20%;
-        text-align: left;
-    }
+  div.padding {
+    padding-top: 2cm;
+    padding-left: 2cm;
+}
 </style>
 
 {% if user.is_authenticated %}
-  <p>Hi! This site has various infromation about {{ user.first_name }}.</p>
+<div class=padding>
+<p class = padding>Hi! This site has various infromation about {{ user.first_name }}.</p>
 
-  <!-- <h2>Personal Information</h2> -->
-<table>
-    <tr>
-      <th >Firstname</th>
-      <td>{{ user.first_name }}</td>
-    </tr>
-    <tr>
-        <th>Lastname</th>
-        <td>{{ user.last_name }}</td>
-      </tr>
-      <tr>
-        <th>E-mail</th>
-        <td>{{ user.email }}</td>
-      </tr>
-      <tr>
-        <th>Contact Number</th>
-        <td>{{ user.contact_no }}</td>
-      </tr>
-  </table>
+  <p> <strong>Name:</strong>  {{ user.first_name }} {{ user.last_name }}</p>
+  <p> <strong>E-mail:</strong> {{ user.email }}</p>
+  <p> <strong>Contact Number:</strong> {{ user.contact_no }}</p>
+  <p> {{user.image}}</p>
+  {% if user.image %}
+    <img src = "{{ user.image.url }}" alt = " No image available" width ="240" >
+  {% endif %}
 
-<!--   <p></p>
-  <p><a href="{% url 'logout' %}">logout</a></p> -->
+</div>
 {% else %}
   <p>You are not logged in</p>
 {% endif %}
