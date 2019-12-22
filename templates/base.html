@@ -46,14 +46,14 @@
   {% if user.is_authenticated %}
     <div class="topnav">
       <a class="active" href="{% url 'home' %}">Personal Information</a>
+      <a href="{% url 'edit' user.pk %}">Edit</a>
       <div class="topnav-right">
-        <a href="{% url 'edit' user.pk %}">edit</a>
-        <a href="{% url 'logout' %}">logout</a>
+        <a href="{% url 'logout' %}">Logout</a>
       </div>
     </div>
     {% else %}
     <div class="topnav">
-      <a class="active" href="#home">Welcome</a>
+      <a class="active" href="{% url 'home' %}">Welcome</a>
       <div class="topnav-right">
         <a href="{% url 'login' %}">login</a>
         <a href="{% url 'signup' %}">signup</a>

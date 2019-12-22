@@ -19,7 +19,7 @@
   <p> <strong>Name:</strong>  {{ user.first_name }} {{ user.last_name }}</p>
   <p> <strong>E-mail:</strong> {{ user.email }}</p>
   <p> <strong>Contact Number:</strong> {{ user.contact_no }}</p>
-  <p> {{user.image}}</p>
+  
   {% if user.image %}
     <img src = "{{ user.image.url }}" alt = " No image available" width ="240" >
   {% endif %}
