@@ -14,7 +14,7 @@
 
 {% if user.is_authenticated %}
 <div class=padding>
-<p class = padding>Hi! This site has various infromation about {{ user.first_name }}.</p>
+  <p >Hi! This site has various infromation about {{ user.first_name }}.</p>
 
   <p> <strong>Name:</strong>  {{ user.first_name }} {{ user.last_name }}</p>
   <p> <strong>E-mail:</strong> {{ user.email }}</p>
@@ -26,6 +26,12 @@
 
 </div>
 {% else %}
-  <p>You are not logged in</p>
+<div class=padding>
+  <p><h2>A simple Dashboard Website containing user information</h2></p>
+  <p></p>
+  <P></P>
+  <p></p>
+  <p><b>You are not logged in</b></p>
+</div>
 {% endif %}
 {% endblock %}

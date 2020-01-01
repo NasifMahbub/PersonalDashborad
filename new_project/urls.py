@@ -18,10 +18,8 @@ from django.contrib import admin
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-
+""" url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'), """
 urlpatterns = [
-
-    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^users/', include('users.urls')),
     url(r'^users/', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
