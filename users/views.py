@@ -26,6 +26,7 @@ from rest_framework.reverse import reverse
 
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
+from rest_framework import viewsets
 
 
 class HomeView(TemplateView):
@@ -50,11 +51,12 @@ class EditView(UpdateView):
 
 
 
-""" @api_view(['GET'])
+@api_view(['GET'])
 def api_root(request, format=None):
     return Response({
         'users': reverse('api-auth/login/', request=request, format=format),
-    }) """
+    })
+
 
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()
@@ -70,3 +72,8 @@ class UserEditView(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.IsAuthenticated, IsAuthenticatedUserOrAdmin]
+
+class UserCreateView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = CustomUserSerializer
+

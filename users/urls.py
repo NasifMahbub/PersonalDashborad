@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^edit/(?P<pk>[0-9]+)/', login_required(views.EditView.as_view()), name='edit'),
     url(r'^api/v1/(?P<pk>[0-9]+)/edit', views.UserEditView.as_view(), name='editview'),
     url(r'^api/v1/(?P<pk>[0-9]+)/', views.UserDetailView.as_view(), name='detailview'),
+    url(r'^api/v1/signup/', views.UserCreateView.as_view(), name='createview'),
     url(r'^api/v1/$', views.UserListView.as_view(), name='listview'),  
 ]
