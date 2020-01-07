@@ -5,7 +5,10 @@ from django.contrib.auth.views import LoginView
 from django.views.generic.base import TemplateView
 from django.urls import reverse
 from django.views import generic
-from .models import CustomUser
+
+from .models import CustomUser, SQLUser, engine, SQLCustomUser
+from sqlalchemy.orm import sessionmaker
+
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
@@ -27,18 +30,36 @@ from rest_framework.reverse import reverse
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from django.views import View
 
+class HomeView(View):
+    template_name="home.html"
 
-class HomeView(TemplateView):
-    template_name='home.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
 class CustomLoginView(LoginView):
     template_name='registration/login.html'
 
-class SignUpView(CreateView):
-    form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'signup.html'
+class SignUpView(View):
+
+    def get(self, request, *args, **kwargs):
+        form = CustomUserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+    def post(self, request, *args, **kwargs):
+        form = CustomUserCreationForm(request.POST, request.FILES)
+        if form.is_valid():
+            Session = sessionmaker(bind = engine)
+            session = Session()
+            newuser = SQLUser(user_name=request.POST.__getitem__('username'), email_adress = request.POST.__getitem__('email'), 
+            first_name = request.POST.__getitem__('first_name'), last_name = request.POST.__getitem__('last_name'),
+            contact_no = request.POST.__getitem__('contact_no'))
+            session.add(newuser)
+            session.commit()
+            session.close()
+            
+            form.save()
+        return render(request, 'home.html', {'form': form})
 
 class EditView(UpdateView):
     model = CustomUser
@@ -46,7 +67,17 @@ class EditView(UpdateView):
     
     success_url = reverse_lazy('home')
     form = CustomUserChangeForm
-    fields = ('first_name', 'last_name', 'email', 'contact_no', 'image')
+    fields = ('first_name', 'last_name', 'email', 'contact_no', 'image') 
+
+    """ def get(self, request, *args, **kwargs):
+        
+        form = CustomUserChangeForm(request.object.id)
+        return render(request, 'edit.html', {'form': form}) 
+    def post(self, request, *args, **kwargs):
+        form = CustomUserChangeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+        return render(request, 'home.html', {'form': form}) """
 
 
 
@@ -76,4 +107,11 @@ class UserEditView(generics.RetrieveUpdateAPIView):
 class UserCreateView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+
+    """ def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) """
 
