@@ -36,14 +36,14 @@ class SQLUser(Base):
     last_name = Column(String(60))
     contact_no = Column(String(20))
 
-class SQLCustomUser(Base):
+""" class SQLCustomUser(Base):
     __tablename__ = 'sqlusers'
     sql_id = Column(Integer(), Sequence('user_id_seq'), primary_key = True) 
     user_name = Column(String(150), ForeignKey('CustomUser.username'))
     email_address = Column(String(255), nullable = False)
     first_name = Column(String(60))
     last_name = Column(String(60))
-    contact_no = Column(String(20))
+    contact_no = Column(String(20)) """
     
 Base.metadata.create_all(engine)
 
