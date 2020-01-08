@@ -6,7 +6,8 @@ from django.views.generic.base import TemplateView
 from django.urls import reverse
 from django.views import generic
 
-from .models import CustomUser, SQLUser, engine, SQLCustomUser
+from .models import CustomUser
+from .sqlalchemymodels import SQLUser, engine
 from sqlalchemy.orm import sessionmaker
 
 from django.shortcuts import render, redirect
