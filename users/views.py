@@ -70,18 +70,6 @@ class EditView(UpdateView):
     form = CustomUserChangeForm
     fields = ('first_name', 'last_name', 'email', 'contact_no', 'image') 
 
-    """ def get(self, request, *args, **kwargs):
-        
-        form = CustomUserChangeForm(request.object.id)
-        return render(request, 'edit.html', {'form': form}) 
-    def post(self, request, *args, **kwargs):
-        form = CustomUserChangeForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-        return render(request, 'home.html', {'form': form}) """
-
-
-
 
 @api_view(['GET'])
 def api_root(request, format=None):
@@ -109,10 +97,9 @@ class UserCreateView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
-    """ def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers) """
+class JSView(View):
+    template_name="jstest.html"
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
