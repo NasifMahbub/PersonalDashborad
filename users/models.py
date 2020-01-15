@@ -2,7 +2,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class CustomUser(AbstractUser, models.Model):
+class CustomUser(AbstractUser):
     pass
     # add additional fields in here
     #user_id = models.IntegerField(primary_key= True)

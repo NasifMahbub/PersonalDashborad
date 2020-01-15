@@ -94,7 +94,46 @@ class UserEditView(generics.RetrieveUpdateAPIView):
 
 class UserCreateView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
-    serializer_class = CustomUserSerializer
+    serializer_class = CustomUserSerializer 
+
+    """ def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+ """
+    """
+    Retrieve, update or delete a snippet instance.
+    """
+
+    """ def delete(self, request, pk, format=None):
+        customUser = self.get_object(pk)
+        customUser.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT) """
+
+    """
+    class RESTCreateView(APIView):
+    
+    def get_object(self, pk):
+        try:
+            return SQLUser.objects.get(pk=pk)
+        except SQLUser.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        sqlUser = self.get_object(pk)
+        serializer = SQLUserSerializer(sqlUser)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        sqlUser = self.get_object(pk)
+        serializer = SQLUserSerializer(sqlUser, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) """
+
+    def delete(self, request, pk, format=None):
+        sqlUser = self.get_object(pk)
+        sqlUser.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class JSView(View):
     template_name="jstest.html"
