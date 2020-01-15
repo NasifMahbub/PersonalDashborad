@@ -30,7 +30,6 @@ from rest_framework.reverse import reverse
 
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
-from rest_framework import viewsets
 from django.views import View
 
 class HomeView(View):

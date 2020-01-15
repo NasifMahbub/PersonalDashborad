@@ -19,5 +19,6 @@ class SQLUser(Base):
     first_name = Column(String(60))
     last_name = Column(String(60))
     contact_no = Column(String(20))
+    image_url = Column(String(512))
     
 Base.metadata.create_all(engine)
