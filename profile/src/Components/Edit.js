@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import './layout/home.css';
 import axios from 'axios';
 
-class Home extends Component {
+class Edit extends Component {
 
   componentDidMount() {
     axios.get('http://127.0.0.1:8000/users/api/v1/2/')
       .then(res => {
         const data = res.data;
         console.log(data);
-        
-        
       });
+      
   }
 
   render() {
     return (
-      <div className="Home">
-        <div className="Home-body">
+      <div className="Edit">
+        <div className="Edit-body">
           <h1>Welcome</h1>
           <p>This is the personal dashboard of {this.props.username} </p>
           <p>Name: {this.props.first_name}  {this.props.last_name}</p>
@@ -32,4 +31,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Edit;
