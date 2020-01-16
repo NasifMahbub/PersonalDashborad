@@ -82,10 +82,36 @@ class UserListView(generics.ListAPIView):
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.IsAdminUser]
    
-class UserDetailView(generics.RetrieveAPIView):
+""" class UserDetailView(generics.RetrieveAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [permissions.IsAuthenticated, IsAuthenticatedUserOrAdmin]
+    #permission_classes = [permissions.IsAuthenticated, IsAuthenticatedUserOrAdmin] """
+
+class UserDetailView(APIView):
+    def get_object(self, pk):
+        try:
+            return CustomUser.objects.get(pk=pk)
+        except CustomUser.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        customUser = self.get_object(pk)
+        serializer = CustomUserSerializer(customUser)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        customUser = self.get_object(pk)
+        serializer = CustomUserSerializer(CustomUser, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        customUser = self.get_object(pk)
+        customUser.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class UserEditView(generics.RetrieveUpdateAPIView):
     queryset = CustomUser.objects.all()
@@ -130,10 +156,10 @@ class UserCreateView(generics.CreateAPIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) """
 
-    def delete(self, request, pk, format=None):
+    """ def delete(self, request, pk, format=None):
         sqlUser = self.get_object(pk)
         sqlUser.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT) """
 
 class JSView(View):
     template_name="jstest.html"
