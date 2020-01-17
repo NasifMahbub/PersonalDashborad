@@ -1,10 +1,12 @@
 # users/views.py
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView, UpdateView
+
+
 from django.contrib.auth.views import LoginView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
-from django.urls import reverse
+
 from django.views import generic
+from django.urls import reverse, reverse_lazy
 
 from .models import CustomUser
 from .sqlalchemymodels import SQLUser, engine
@@ -13,8 +15,7 @@ from sqlalchemy.orm import sessionmaker
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 
-
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, SQLUserSerializer
 from .permissions import IsAuthenticatedUserOrAdmin
 from django.http import HttpResponse, JsonResponse
 
@@ -28,7 +29,6 @@ from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.views import APIView
 from django.views import View
 
@@ -97,10 +97,20 @@ class UserDetailView(APIView):
     def get(self, request, pk, format=None):
         customUser = self.get_object(pk)
         serializer = CustomUserSerializer(customUser)
-        return Response(serializer.data)
+
+        print(customUser.username)
+
+        Session = sessionmaker(bind = engine)
+        session = Session()
+        our_user = session.query(SQLUser).filter_by(user_name=customUser.username).first()
+        sqlAlchemyserializer= SQLUserSerializer(our_user)
+        session.close()
+
+        return Response(sqlAlchemyserializer.data)
 
     def put(self, request, pk, format=None):
         customUser = self.get_object(pk)
+
         serializer = CustomUserSerializer(CustomUser, data=request.data)
         if serializer.is_valid():
             serializer.save()

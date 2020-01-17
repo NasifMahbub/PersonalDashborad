@@ -27,7 +27,7 @@ class CustomUserSerializer(serializers.Serializer):
 class SQLUserSerializer(serializers.Serializer):
     sqluser_id = serializers.IntegerField() 
     user_name = serializers.CharField(max_length = 150, required=True)
-    email_address = serializers.EmailField()
+    email_address = serializers.CharField(max_length = 255)
     first_name = serializers.CharField(max_length = 60)
     last_name = serializers.CharField(max_length = 60)
     contact_no = serializers.CharField(max_length = 20)

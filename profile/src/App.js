@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
 import Home from './Components/Home.jsx'
 import Edit from './Components/Edit.jsx'
 
@@ -8,83 +7,77 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   NavLink
 } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.getData = this.getData.bind(this);
-    this.state = {
-      id: null,
-      username: null,
-      first_name: null,
-      last_name: null,
-      email: null,
-      contact_no: null,
-      image: null
-    };
+    this.storeGetData = this.storeGetData.bind(this);
+    /* this.state = {
+      id: "",
+      username: "",
+      first_name: "",
+      last_name: "",
+      email: "",
+      contact_no: "",
+      image: "",
+    }; */
+
+    this.state ={
+      id: "2",
+      username: "test1",
+      first_name: "Nasif",
+      last_name: "Mahbub",
+      email: "test1@gmail.com",
+      contact_no: "0",
+      image: "profile_image/owl_qx5Urz9.png"
+    }
   }
 
-  getData(data){
-    this.setState({
-      id: data.id, username: data.username,
-      first_name: data.first_name, last_name: data.last_name,
-      email: data.email, contact_no: data.contact_no, image: data.image
-    });
-  }
-
-  async componentDidMount() {
+  /* async componentDidMount() {
     await axios.get('http://127.0.0.1:8000/users/api/v1/2/')
       .then(res => {
         const data = res.data;
         this.getData(data);
       });
+  } */
+
+  storeGetData(data){
+    console.log('storegetdata called');
+    console.log(data);
+    this.setState({
+      id: data.id, username: data.user_name,
+      first_name: data.first_name, last_name: data.last_name,
+      email: data.email_address, contact_no: data.contact_no, image: data.image
+    });
+  }
+  componentDidMount(){
+    console.log(this.props.contact_no);
   }
 
   render() {
     return (
-
       <div className="App">
       <header className = "App-header">
-      {/* <div>
-            <nav className = "App-nav">
-              <ul>
-                <li>
-                  <p>Home</p>
-                </li>
-                
-              </ul>
-            </nav>
-        </div> */}
         <Router>
           <div>
             <nav className = "App-nav">
-            <NavLink className="App-navLink" to = '#'>Home</NavLink>
-            <NavLink className="App-navLink" to = '#'>Edit</NavLink>
+            <NavLink className="App-navLink" to = '/'>Home</NavLink>
+            <NavLink className="App-navLink" to = '/edit'>Edit</NavLink>
             </nav>
             
-            {/* <Switch>
+            <Switch>  
               <Route path="/edit">
-                <Edit/>
+                <Edit onGetData={this.storeGetData} {...this.state}/>
               </Route>
-              
-            </Switch> */}
+              <Route path="/" >
+                <Home onGetData={this.storeGetData} {...this.state}/>
+              </Route>
+            </Switch>
           </div>
         </Router>
         </header>
-
-        <div className="App-body">
-          <h1>Welcome</h1>
-          <p>This is the personal dashboard of {this.state.username} </p>
-          <p>Name: {this.state.first_name}  {this.state.last_name}</p>
-          <p>Email: {this.state.email}</p>
-          <p>Contact No: {this.state.contact_no}</p>
-
-          <img src={this.state.image} alt="" />
-          <p></p>
-        </div>
       </div>
     );
   }
