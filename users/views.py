@@ -51,9 +51,9 @@ class SignUpView(View):
         if form.is_valid():
             Session = sessionmaker(bind = engine)
             session = Session()
-            newuser = SQLUser(user_name=request.POST.__getitem__('username'), email_adress = request.POST.__getitem__('email'), 
+            newuser = SQLUser(user_name=request.POST.__getitem__('username'), email_address = request.POST.__getitem__('email'), 
             first_name = request.POST.__getitem__('first_name'), last_name = request.POST.__getitem__('last_name'),
-            contact_no = request.POST.__getitem__('contact_no'))
+            contact_no = request.POST.__getitem__('contact_no'), image_url = request.POST.__getitem__('image').url)
             session.add(newuser)
             session.commit()
             session.close()

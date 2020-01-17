@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
-import Home from './Components/Home.js'
-import Edit from './Components/Edit.js'
+import Home from './Components/Home.jsx'
+import Edit from './Components/Edit.jsx'
 
 import {
   BrowserRouter as Router,

@@ -37,7 +37,7 @@ class SQLUserSerializer(serializers.Serializer):
         return SQLUser.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.email_adress = validated_data.get('email_adress', instance.email_adress)
+        instance.email_address = validated_data.get('email_address', instance.email_adress)
         instance.first_name = validated_data.get('first_name', instance.first_name)
         instance.last_name = validated_data.get('last_name', instance.last_name)
         instance.contact_no = validated_data.get('contact_no', instance.contact_no)
